@@ -1,0 +1,22 @@
+<h5 style="text-align: center;"><strong>Exemple de prompt:</strong> une application web de gestion de restaurant</h5>
+<div class="chat-container">
+    <div class="chat-window">
+      <div class="chat-container">
+        <!-- Affichage des messages -->
+        <div *ngFor="let message of messages" class="message">
+          <div *ngIf="message.sender != ''">
+            <p style="font-size: 20px;"><strong>{{ message.sender }}:</strong></p>
+          </div>
+          <p [innerHTML]="message.content"></p>
+        </div>        
+      </div>      
+    </div>
+
+    <div class="chat-input">
+      <div class="input-group">
+          <input class="form-control" [(ngModel)]="userInput" placeholder="Entrez votre message..." />
+          <button class="btn btn-primary" (click)="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </div>
+  
