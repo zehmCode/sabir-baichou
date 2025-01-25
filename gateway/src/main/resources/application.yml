@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: r1
+          uri: lb://APPGEN
+          predicates:
+            - Path=/api/chat/**
+
+        - id: r2
+          uri: lb://GESTIONUSECASE
+          predicates:
+            - Path=/api/usecases/**
+
+        - id: r3
+          uri: lb://GESTIONPROJECT
+          predicates:
+            - Path=/api/projects/**
+
+        - id: r4
+          uri: lb://GESTIONMICROSERVICE
+          predicates:
+            - Path=/api/microservices/**
+
+        - id: r5
+          uri: lb://GESTIONDIAGRAMME
+          predicates:
+            - Path=/api/diagrammes/**

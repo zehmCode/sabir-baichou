@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+
+  # MySQL Service
+  mysql_container:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: demo_db
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo
+    ports:
+      - "3308:3306"
+    networks:
+      - app-network
+
+  spring_app:
+    image: my_app_01:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_container:3306/demo_db?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - app-network
+    depends_on:
+      - mysql_container
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+
+networks:
+  app-network:
